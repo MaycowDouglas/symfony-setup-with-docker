@@ -23,7 +23,7 @@ services:
       - 9000:9000
     volumes:
       - .:/var/www/app
-      - ./.zshrc:~/.zshrc
+      - ./.zshrc:/home/maycow/.zshrc
     depends_on:
       - database
 

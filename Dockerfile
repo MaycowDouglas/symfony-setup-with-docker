@@ -24,10 +24,6 @@ RUN apt update \
             pdo_pgsql \
             pgsql
 
-RUN sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" \
-    && git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1 \
-    && ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -50,5 +46,10 @@ USER $user
 RUN git config --global user.email "melo.maycow@gmail.com" \ 
     && git config --global user.name "Maycow Marques" \
     && git config --global init.defaultBranch main
+
+RUN sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" \
+    && git clone https://github.com/spaceship-prompt/spaceship-prompt.git "/home/maycow/.oh-my-zsh/custom/themes/spaceship-prompt" --depth=1 \
+    && git clone https://github.com/zsh-users/zsh-autosuggestions "/home/maycow/.oh-my-zsh/custom/plugins/zsh-autosuggestions" \
+    && ln -s "/home/maycow/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme" "/home/maycow/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 
 WORKDIR /var/www/app
