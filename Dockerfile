@@ -6,6 +6,8 @@ ARG uid=1000
 # System dependencies
 RUN apt update \
         && apt install -y \
+            zsh \
+            zsh-syntax-highlighting \
             wget \
             netcat \
             g++ \
@@ -22,6 +24,10 @@ RUN apt update \
             pdo_pgsql \
             pgsql
 
+RUN sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" \
+    && git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1 \
+    && ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -32,16 +38,6 @@ RUN apt install -y symfony-cli
 # Install NodeJS and enable YARN
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash
 RUN apt install -y nodejs && corepack enable
-
-# Install and configure ZSH
-RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
-    -t https://github.com/denysdovhan/spaceship-prompt \
-    -a 'SPACESHIP_PROMPT_ADD_NEWLINE="false"' \
-    -a 'SPACESHIP_PROMPT_SEPARATE_LINE="false"' \
-    -p git \
-    -p ssh-agent \
-    -p https://github.com/zsh-users/zsh-autosuggestions \
-    -p https://github.com/zsh-users/zsh-completions
 
 # Create a new super user
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
