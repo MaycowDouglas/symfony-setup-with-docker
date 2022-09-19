@@ -11,6 +11,6 @@ wget -P ./$project_name https://github.com/MaycowDouglas/symfony-setup-with-dock
 wget -P ./$project_name https://github.com/MaycowDouglas/symfony-setup-with-docker/raw/main/composer.json &&
 wget -P ./$project_name https://github.com/MaycowDouglas/symfony-setup-with-docker/raw/main/Dockerfile &&
 wget -P ./$project_name https://github.com/MaycowDouglas/symfony-setup-with-docker/raw/main/.zshrc &&
-wget -P ./$project_name/.devcontainer https://github.com/MaycowDouglas/symfony-setup-with-docker/raw/main/devcontainer.json &&
-wget -P ./$project_name/.devcontainer https://github.com/MaycowDouglas/symfony-setup-with-docker/raw/main/docker-compose.yml
+wget -P ./$project_name/.devcontainer https://github.com/MaycowDouglas/symfony-setup-with-docker/raw/main/.devcontainer/devcontainer.json &&
+wget -P ./$project_name/.devcontainer https://github.com/MaycowDouglas/symfony-setup-with-docker/raw/main/.devcontainer/docker-compose.yml
 ```
